@@ -19,3 +19,10 @@
 .byebug_history
 /public/packs
 /node_modules
+
+
+/log/*.log
+/tmp
+tags
+coverage/
+.DS_Store
