@@ -1,0 +1,65 @@
+en:
+  activerecord:
+    errors:
+      models:
+        login:
+          attributes:
+            email:
+              blank: "You have to enter an e-mail address"
+            password:
+              blank: "You have to enter a password"
+        request_password_reset:
+          attributes:
+            email:
+              blank: "You have to enter an e-mail address"
+        password_reset:
+          attributes:
+            password:
+              blank: "You have to enter a new password"
+              too_short: "Password too short (at least 8 characters)"
+
+  base_auth:
+    # from base_auth application_helper login/logout links on main nav
+    helpers:
+      register_link: "Register"
+      login_link: "Login"
+      logout_link: "Logout"
+      logged_in_as: "%{email}"
+    user:
+      session:
+        new:
+          headline: "Login"
+          email_field_label: "E-Mail"
+          password_field_label: "Password"
+          forgot_password: "Forgot your password?"
+          remember_me: "Remember me"
+          submit_login_button: "Log in"
+
+      password_reset:
+        new:
+          headline: "Reset password"
+          email_field_label: "E-Mail"
+          submit_password_reset_request_button: "Submit"
+        edit:
+          headline: "Set new password"
+          password_field_label: "Password"
+          submit_password_reset_button: "Submit"
+
+  flash:
+    user:
+      session:
+        create:
+          success: "Login successful"
+          failure: "Invalid e-mail/password combination"
+        destroy:
+          success: "Logout successful"
+      request_password_reset:
+        create:
+          success_html: "An e-mail containing reset instructions was sent to %{email}"
+      password_reset:
+        edit:
+          success: "Password reset was successful. You may login now"
+          failure: "Your password could not be reset"
+    admin:
+      authentication:
+        not_logged_in: "You have to log in"
