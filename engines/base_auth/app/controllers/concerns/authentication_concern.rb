@@ -13,8 +13,8 @@ module AuthenticationConcern
   end
 
 
-  def login!(user, remember_me: "0")
-    if remember_me == "1"
+  def login!(user, remember_me: false)
+    if remember_me
       cookies.permanent[:auth_token] = user.auth_token
     else
       cookies[:auth_token] = user.auth_token

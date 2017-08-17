@@ -4,32 +4,29 @@ module BaseAuth
       skip_before_action :verify_authenticity_token, only: :destroy
 
       def new
-        # assign BaseAuth::Session::Actions::Create.new
+        @form = CreateSession.new
       end
 
 
       def create
-        # assign BaseAuth::Session::Actions::Create.new
-
-        # submit params[:session] do |success|
-        #   if success
-        #     login!(@action.form.user, remember_me: @action.form.remember_me)
-        #     flash[:notice] = t("flash.user.session.create.success")
-        #     redirect_to redirect_url_from_session || redirect_url
-        #   else
-        #     unless @action.form.errors.any?
-        #       flash.now[:alert] = t("flash.user.session.create.failure")
-        #     end
-        #     render "new"
-        #   end
-        # end
+        login_form = CreateSession.run(params[:user_create_session_login])
+        if login_form.valid?
+          login!(login_form.user, remember_me: login_form.remember_me)
+          flash[:notice] = t("flash.user.session.create.success")
+          redirect_to redirect_url_from_session || redirect_url
+        else
+          flash.now[:alert] = t("flash.user.session.create.failure")
+          @form = login_form
+          render "new"
+        end
       end
 
       def destroy
-        # logout!
-        # flash[:notice] = t("flash.user.session.destroy.success")
-        # redirect_to main_app.root_path
+        logout!
++       flash[:notice] = t("flash.user.session.destroy.success")
+        redirect_to main_app.root_path
       end
+
 
       private
       def redirect_url_from_session

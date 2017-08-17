@@ -1,27 +1,16 @@
 .container
   .col-md-6.col-md-offset-3
     h1= t ".headline"
-
-    = form_for @action.form, url: login_path do |f|
-      .form-group
-        label for="email"
-          = t(".email_field_label")
-        = f.email_field :email, class: "form-control"
-      .form-group
-        label for="password"
-          = t(".password_field_label")
-        = f.password_field :password, class: "form-control"
-        = link_to t(".forgot_password"),
-          base_auth.password_reset_path,
-          id: "forgot_password_link"
-
+    = bootstrap_form_for @form, url: login_path do |f|
+      = f.email_field :email, label: t(".email_field_label")
+      = f.password_field :password, label: t(".password_field_label")
+      = link_to t(".forgot_password"),
+        base_auth.password_reset_path,
+        id: "forgot_password_link"
       br
-      .form-inline
-        .form-group
-          = f.submit t(".submit_login_button"),
-            id: "submit_login", class: "btn btn-default"
-        .form-group
-          .check-box
-            = f.check_box :remember_me
-            | &nbsp
-            = t(".remember_me")
+      br
+
+
+      = f.submit t(".submit_login_button"),
+        id: "submit_login"
+      = f.check_box :remember_me, label: t(".remember_me"), inline: true

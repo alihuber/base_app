@@ -1,4 +1,5 @@
-# require "gon"
+require "active_interaction"
+require "bootstrap_form"
 
 module BaseAuth
   class Engine < ::Rails::Engine
@@ -13,12 +14,6 @@ module BaseAuth
         g.view_specs          false
         g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
-
-
-    # config.autoload_paths += %W(
-    #   #{config.root}/app/forms/concerns
-    #   #{config.root}/app/services/concerns
-    # )
 
     # Run migrations in this engine for the main app, too
     initializer "base_auth.append_migrations" do |app|

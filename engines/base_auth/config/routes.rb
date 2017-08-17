@@ -4,7 +4,7 @@ BaseAuth::Engine.routes.draw do
     post   "login"    => "session#create"
     delete "logout"   => "session#destroy"
 
-    # get    "password_reset"        => "password_reset#new"
+    get    "password_reset"        => "password_reset#new"
     # post   "password_reset"        => "password_reset#create"
     # get    "password_reset/:token" => "password_reset#edit",
     #                                   as: "do_password_reset"
