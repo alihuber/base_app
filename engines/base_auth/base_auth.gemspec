@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "5.1.3"
   s.add_dependency "sass-rails", "~> 5.0.0"
   s.add_dependency "spring"
-  s.add_dependency "turbolinks"
   s.add_dependency "uglifier"
   s.add_dependency "active_interaction"
   s.add_dependency "slim-rails"

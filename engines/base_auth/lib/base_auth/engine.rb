@@ -29,6 +29,10 @@ module BaseAuth
     # end
 
     config.to_prepare do
+      Rails.application.config.assets.precompile += %w(
+        base_auth/loginCtrl.js
+      )
+
       ::ApplicationController.class_eval do
         include AuthenticationConcern
         helper BaseAuth::Engine.helpers

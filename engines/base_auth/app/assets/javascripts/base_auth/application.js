@@ -11,6 +11,3 @@
 // about supported directives.
 //
 //= require_self
-
-window.BaseAuth = {};
-window.Views.BaseAuth = {};

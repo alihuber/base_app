@@ -22,3 +22,13 @@ body { padding-top: 70px; }
 label.required:after {
   content:"*";
 }
+
+/* AngularJS-forms */
+.ng-invalid.ng-dirty {
+  border-color: darkred;
+  outline-color: darkred;
+}
+.ng-valid.ng-dirty {
+  border-color: darkgreen;
+  outline-color: darkgreen;
+}
