@@ -1,6 +1,5 @@
 require "rails_helper"
 
-
 describe "Index page" do
 
   it "has a heading" do

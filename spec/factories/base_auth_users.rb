@@ -17,18 +17,13 @@
 #  index_base_auth_users_on_password_reset_token  (password_reset_token) UNIQUE
 #
 
-module BaseAuth
-  class User < ApplicationRecord
-    has_secure_password
+FactoryGirl.define do
+  factory :user, class: BaseAuth::User do
+    email      { Faker::Internet.email }
+    password   { Faker::Internet.password }
+    auth_token { SecureRandom.urlsafe_base64(24) }
 
-    def admin?
-      false
-    end
-
-    class AdminUser < self
-      def admin?
-        true
-      end
-    end
+    factory :admin_user, class: BaseAuth::User::AdminUser
   end
 end
+

@@ -1,6 +1,6 @@
 module BaseAuth
   class User
-    class CreateSession < ActiveInteraction::Base
+    class Session < ActiveInteraction::Base
       object  :user,        default: nil, class: User
       string  :email,       default: nil
       string  :password,    default: nil

@@ -4,12 +4,12 @@ module BaseAuth
       skip_before_action :verify_authenticity_token, only: :destroy
 
       def new
-        @form = CreateSession.new
+        @form = Session.new
       end
 
 
       def create
-        login_form = CreateSession.run(params[:user_create_session_login])
+        login_form = Session.run(params[:user_session_login])
         if login_form.valid?
           login!(login_form.user, remember_me: login_form.remember_me)
           flash[:notice] = t("flash.user.session.create.success")
@@ -23,7 +23,7 @@ module BaseAuth
 
       def destroy
         logout!
-+       flash[:notice] = t("flash.user.session.destroy.success")
+        flash[:notice] = t("flash.user.session.destroy.success")
         redirect_to main_app.root_path
       end
 

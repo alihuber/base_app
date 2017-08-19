@@ -69,6 +69,7 @@ group :test do
   # gem "poltergeist"
   gem "show_me_the_cookies"
   gem "simplecov", require: false
+  gem "shoulda-matchers"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
