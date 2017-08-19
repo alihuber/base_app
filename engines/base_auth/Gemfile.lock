@@ -1,8 +1,15 @@
 PATH
+  remote: ../base_mailer
+  specs:
+    base_mailer (0.1.0)
+      rails (~> 5.1.3)
+
+PATH
   remote: .
   specs:
     base_auth (0.0.1)
       active_interaction
+      base_mailer
       bcrypt
       bootstrap_form
       rails (= 5.1.3)
@@ -151,6 +158,7 @@ PLATFORMS
 
 DEPENDENCIES
   base_auth!
+  base_mailer!
 
 BUNDLED WITH
    1.15.3

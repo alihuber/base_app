@@ -25,5 +25,5 @@ Gem::Specification.new do |s|
   s.add_dependency "slim-rails"
   s.add_dependency "bootstrap_form"
 
-  # s.add_dependency "base_mailer"
+  s.add_dependency "base_mailer"
 end

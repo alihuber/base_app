@@ -24,6 +24,9 @@ module BaseApp
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.time_zone = "Berlin"
+    config.i18n.load_path += Dir["#{Rails.root.to_s}/engines/base_mailer/config/locales/**/*.{rb,yml}"]
+    config.i18n.default_locale = :de
 
     # Don't generate system test files.
     config.generators.system_tests = nil

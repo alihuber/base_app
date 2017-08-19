@@ -1,0 +1,6 @@
+de:
+  base_mailer:
+    authentication_mailer:
+      request_password_reset:
+        subject: "Link Passwortreset"
+        body: "Hier ist ihr Link zum Zurücksetzen des Passworts: %{reset_link}"

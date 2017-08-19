@@ -37,7 +37,8 @@ gem "bcrypt", "~> 3.1.7"
 ####
 # engines
 ####
-gem "base_auth",     path: "engines/base_auth"
+gem "base_auth",   path: "engines/base_auth"
+gem "base_mailer", path: "engines/base_mailer"
 
 
 # Use Capistrano for deployment
@@ -57,6 +58,7 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "annotate" # model files database info annotations
+  gem "letter_opener"
 end
 
 group :test do
