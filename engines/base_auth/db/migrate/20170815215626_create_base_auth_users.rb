@@ -7,6 +7,7 @@ class CreateBaseAuthUsers < ActiveRecord::Migration[5.1]
       t.string   :auth_token
       t.string   :password_reset_token
       t.datetime :password_reset_sent_at
+      t.timestamps
     end
 
     add_index :base_auth_users, :email,                unique: true

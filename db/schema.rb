@@ -12,13 +12,18 @@
 
 ActiveRecord::Schema.define(version: 20170815215626) do
 
-  create_table "base_auth_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "base_auth_users", force: :cascade do |t|
     t.string "type"
     t.string "email"
     t.string "password_digest"
     t.string "auth_token"
     t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["auth_token"], name: "index_base_auth_users_on_auth_token", unique: true
     t.index ["email"], name: "index_base_auth_users_on_email", unique: true
     t.index ["password_reset_token"], name: "index_base_auth_users_on_password_reset_token", unique: true

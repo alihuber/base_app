@@ -9,7 +9,7 @@ end
 # server stuff
 ####
 gem "rails", "~> 5.1.3"
-gem "mysql2", ">= 0.3.18", "< 0.5"
+gem "pg", "~> 0.18"
 gem "puma", "~> 3.7"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.5"

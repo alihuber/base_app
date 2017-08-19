@@ -15,4 +15,13 @@ BaseAuth::User::AdminUser.create!(
   auth_token:  SecureRandom.urlsafe_base64(24)
 )
 
+
+puts "Seeding test user"
+
+BaseAuth::User.create!(
+  email:      "foo@bar.com",
+  password:   "test123",
+  auth_token:  SecureRandom.urlsafe_base64(24)
+)
+
 puts "DB seeds done"
