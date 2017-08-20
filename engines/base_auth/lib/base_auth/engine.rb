@@ -32,6 +32,7 @@ module BaseAuth
       Rails.application.config.assets.precompile += %w(
         base_auth/loginCtrl.js
         base_auth/requestPasswordResetCtrl.js
+        base_auth/editPasswordResetCtrl.js
       )
 
       ::ApplicationController.class_eval do

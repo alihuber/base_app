@@ -27,25 +27,21 @@ module BaseAuth
 
 
       def edit
-        @form = NewPasswordReset.run!
+        @form = EditPasswordReset.run!
       end
 
 
       def update
-        if params[:user_new_password_reset_password_reset]
-          password =
-            params[:user_new_password_reset_password_reset][:password]
-        else
-          password = params[:user_update_password][:password]
-        end
-        token      = params[:token]
-        inputs     = Hash[password: password, token: token]
-        reset_form = UpdatePassword.run(inputs)
-        if reset_form.valid?
+        password =
+          params[:user_edit_password_reset_password_reset][:password]
+        token    = params[:token]
+        inputs   = Hash[password: password, token: token]
+        reset    = ResetPassword.run(inputs)
+        if reset.valid?
           flash[:notice] = t("flash.user.password_reset.edit.success")
           redirect_to main_app.root_path
         else
-          @form = reset_form
+          @form = EditPasswordReset.run!
           flash.now[:alert] = t("flash.user.password_reset.edit.failure")
           render "edit"
         end

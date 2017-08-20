@@ -1,0 +1,15 @@
+= content_for :angular_js do
+  = javascript_include_tag("base_auth/editPasswordResetCtrl")
+
+.container
+  .col-md-6.col-md-offset-3
+    h1= t ".headline"
+
+    = bootstrap_form_for @form, url: do_password_reset_path,
+      html: {name: "editPasswordResetForm", novalidate: true} do |f|
+      = f.password_field :password, label: t(".password_field_label"),
+        data: {"ng-model" => "password", required: true, "ng-minlength" => 6}
+
+      = f.submit t(".submit_password_reset_button"),
+        id: "submit_password_reset", class: "btn btn-default",
+        data: {"ng-disabled" => "editPasswordResetForm.$invalid"}
