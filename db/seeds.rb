@@ -12,6 +12,7 @@ puts "Seeding Admin"
 BaseAuth::User::AdminUser.create!(
   email:      "test@admin.de",
   password:   "admin123",
+  type:       "BaseAuth::User::AdminUser",
   auth_token:  SecureRandom.urlsafe_base64(24)
 )
 
@@ -21,6 +22,7 @@ puts "Seeding test user"
 BaseAuth::User.create!(
   email:      "foo@bar.com",
   password:   "test123",
+  type:       "BaseAuth::User",
   auth_token:  SecureRandom.urlsafe_base64(24)
 )
 

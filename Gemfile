@@ -35,11 +35,13 @@ gem "slim-rails"
 ####
 # Use ActiveModel has_secure_password
 gem "bcrypt", "~> 3.1.7"
+gem "jwt"
 
 ####
 # engines
 ####
 gem "base_auth",   path: "engines/base_auth"
+gem "base_api",    path: "engines/base_api"
 gem "base_mailer", path: "engines/base_mailer"
 
 
