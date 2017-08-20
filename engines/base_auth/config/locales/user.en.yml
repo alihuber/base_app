@@ -40,6 +40,7 @@ en:
           headline: "Reset password"
           email_field_label: "E-Mail"
           submit_password_reset_request_button: "Submit"
+          failure: "Your password could not be reset"
         edit:
           headline: "Set new password"
           password_field_label: "Password"
@@ -56,10 +57,11 @@ en:
       request_password_reset:
         create:
           success_html: "An e-mail containing reset instructions was sent to %{email}"
+          failure: "Your password could not be reset"
       password_reset:
         edit:
           success: "Password reset was successful. You may login now"
           failure: "Your password could not be reset"
     admin:
       authentication:
-        not_logged_in: "You have to log in"
+        not_logged_in: "Please log in"

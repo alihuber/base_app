@@ -1,0 +1,15 @@
+= content_for :angular_js do
+  = javascript_include_tag("base_auth/requestPasswordResetCtrl")
+
+.container
+  .col-md-6.col-md-offset-3
+    h1= t ".headline"
+
+    = bootstrap_form_for @form, url: password_reset_path,
+      html: {name: "requestPasswordResetForm", novalidate: true} do |f|
+      = f.email_field :email, label: t(".email_field_label"),
+        data: {"ng-model" => "email", required: true}
+
+      = f.submit t(".submit_password_reset_request_button"),
+        id: "submit_password_reset_request", class: "btn btn-default",
+        data: {"ng-disabled" => "requestPasswordResetForm.$invalid"}

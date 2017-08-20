@@ -40,6 +40,7 @@ de:
           headline: "Passwort zurücksetzen"
           email_field_label: "E-Mail"
           submit_password_reset_request_button: "Absenden"
+          failure: "Ihr Passwort konnte nicht zurückgesetzt werden."
         edit:
           headline: "Neues Passwort setzen"
           password_field_label: "Passwort"
@@ -49,17 +50,18 @@ de:
     user:
       session:
         create:
-          success: "Sie wurden erfolgreich eingeloggt."
+          success: "Login erfolgreich"
           failure: "Ungültige E-Mail/Passwort-Kombination"
         destroy:
-          success: "Sie wurden erfolgreich ausgeloggt."
+          success: "Logout erfolgreich"
       request_password_reset:
         create:
-          success_html: "Eine E-Mail zum zurücksetzen des Passworts wurde an %{email} versandt."
+          success_html: "Eine E-Mail zum Zurücksetzen des Passworts wurde an %{email} gesendet."
+          failure: "Ihr Passwort konnte nicht zurückgesetzt werden."
       password_reset:
         edit:
           success: "Das Setzen ihres Passworts war erfolgreich. Sie können sich jetzt einloggen."
           failure: "Ihr Passwort konnte nicht zurückgesetzt werden."
     admin:
       authentication:
-        not_logged_in: "Sie müssen sich anmelden"
+        not_logged_in: "Bitte loggen sie sich ein."
