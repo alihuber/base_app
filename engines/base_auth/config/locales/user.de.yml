@@ -1,4 +1,12 @@
 de:
+  active_interaction:
+    errors:
+      models:
+        base_auth/user/authorize_api_request:
+          attributes:
+            headers:
+              missing: "muss ausgefüllt werden"
+              invalid_nested: "kein gültiges Format"
   activerecord:
     errors:
       models:

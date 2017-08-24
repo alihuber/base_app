@@ -22,8 +22,11 @@ FactoryGirl.define do
     email      { Faker::Internet.email }
     password   { Faker::Internet.password }
     auth_token { SecureRandom.urlsafe_base64(24) }
+    type       { "BaseAuth::User" }
 
-    factory :admin_user, class: BaseAuth::User::AdminUser
+    factory :admin_user, class: BaseAuth::User::AdminUser do
+      type  { "BaseAuth::User::AdminUser" }
+    end
   end
 end
 

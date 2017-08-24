@@ -1,3 +1,5 @@
+require "rails_helper"
+
 feature "session handling" do
   let(:admin_user) { create :admin_user }
 

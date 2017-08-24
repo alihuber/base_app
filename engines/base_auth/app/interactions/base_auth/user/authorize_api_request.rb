@@ -1,9 +1,7 @@
 module BaseAuth
   class User
-    class AuthorizeRequest < ActiveInteraction::Base
-      hash :headers do
-        string :Authorization
-      end
+    class AuthorizeApiRequest < ActiveInteraction::Base
+      hash :headers { string :Authorization }
       validates :headers, presence: true
 
       def execute
@@ -21,12 +19,10 @@ module BaseAuth
       end
 
       def token
-        if headers["Authorization"].present?
-          return headers["Authorization"].split(" ").last
-        else
-          errors.add(:token, "Missing token")
-        end
-        nil
+        return nil unless headers["Authorization"].present?
+        token = headers["Authorization"].split(" ").last
+        errors.add(:token, "Missing token") if token&.blank?
+        token ? token : nil
       end
     end
   end

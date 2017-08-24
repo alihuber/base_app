@@ -7,7 +7,7 @@ module AdminConcern
 
   def admin_authenticated?
     unless @current_user.type == BaseAuth::User::AdminUser.to_s
-      render status: :unauthorized
+      render json: { error: "Not Authorized" }, status: 401
     end
   end
 

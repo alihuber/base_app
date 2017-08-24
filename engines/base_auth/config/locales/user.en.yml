@@ -1,4 +1,12 @@
 en:
+  active_interaction:
+    errors:
+      models:
+        base_auth/user/authorize_api_request:
+          attributes:
+            headers:
+              missing: "cannot be blank"
+              invalid_nested: "invalid format"
   activerecord:
     errors:
       models:
