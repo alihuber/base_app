@@ -10,7 +10,7 @@ feature "user authentication" do
     click_button "submit_password_reset_request"
 
     expect(page).to have_css ".alert-danger"
-    expect(current_path).to eq base_auth.password_reset_path
+    expect(current_path).to eq base_account.password_reset_path
   end
 
   scenario "request password reset fails (wrong email)" do
@@ -22,7 +22,7 @@ feature "user authentication" do
     click_button "submit_password_reset_request"
 
     expect(page).to have_css ".alert-danger"
-    expect(current_path).to eq base_auth.password_reset_path
+    expect(current_path).to eq base_account.password_reset_path
   end
 
   scenario "request password reset succeeds" do

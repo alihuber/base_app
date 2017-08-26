@@ -13,8 +13,8 @@ feature "session handling" do
 
 
     click_link "login_link"
-    fill_in "user_session_login_email",    with: admin_user.email
-    fill_in "user_session_login_password", with: admin_user.password
+    fill_in "session_create_session_login_email",    with: admin_user.email
+    fill_in "session_create_session_login_password", with: admin_user.password
     click_button "submit_login"
 
     expect(page).to have_css ".alert-success"
@@ -25,9 +25,9 @@ feature "session handling" do
   scenario "login with 'remember_me'" do
     visit main_app.root_path
     click_link "login_link"
-    fill_in "user_session_login_email",    with: admin_user.email
-    fill_in "user_session_login_password", with: admin_user.password
-    check "user_session_login_remember_me"
+    fill_in "session_create_session_login_email",    with: admin_user.email
+    fill_in "session_create_session_login_password", with: admin_user.password
+    check "session_create_session_login_remember_me"
     click_button "submit_login"
 
     expect(page).to have_css ".alert-success"
@@ -39,8 +39,8 @@ feature "session handling" do
 
   scenario "login fails" do
     visit base_auth.login_path
-    fill_in "user_session_login_email",    with: admin_user.email
-    fill_in "user_session_login_password", with: "wrong"
+    fill_in "session_create_session_login_email",    with: admin_user.email
+    fill_in "session_create_session_login_password", with: "wrong"
     click_button "submit_login"
 
     expect(page).to have_css ".alert-danger"

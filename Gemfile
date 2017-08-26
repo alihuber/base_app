@@ -40,9 +40,10 @@ gem "jwt"
 ####
 # engines
 ####
-gem "base_auth",   path: "engines/base_auth"
-gem "base_api",    path: "engines/base_api"
-gem "base_mailer", path: "engines/base_mailer"
+gem "base_auth",    path: "engines/base_auth"
+gem "base_account", path: "engines/base_account"
+gem "base_api",     path: "engines/base_api"
+gem "base_mailer",  path: "engines/base_mailer"
 
 
 # Use Capistrano for deployment

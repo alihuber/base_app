@@ -1,0 +1,48 @@
+de:
+  active_interaction:
+    errors:
+      models:
+        base_auth/api/authorize_api_request:
+          attributes:
+            headers:
+              missing: "muss ausgefüllt werden"
+              invalid_nested: "kein gültiges Format"
+
+  activerecord:
+    errors:
+      models:
+        login:
+          attributes:
+            email:
+              blank: "Sie müssen eine E-Mail-Adresse angeben"
+            password:
+              blank: "Sie müssen ein Passwort angeben"
+
+  base_auth:
+    # from base_auth application_helper login/logout links on main nav
+    helpers:
+      register_link: "Registrieren"
+      login_link: "Login"
+      logout_link: "Logout"
+      logged_in_as: "%{email}"
+    session:
+      session:
+        new:
+          headline: "Login"
+          email_field_label: "E-Mail"
+          password_field_label: "Passwort"
+          forgot_password: "Passwort vergessen?"
+          remember_me: "Eingeloggt bleiben"
+          submit_login_button: "Einloggen"
+
+  flash:
+    user:
+      session:
+        create:
+          success: "Login erfolgreich"
+          failure: "Ungültige E-Mail/Passwort-Kombination"
+        destroy:
+          success: "Logout erfolgreich"
+    admin:
+      authentication:
+        not_logged_in: "Bitte loggen sie sich ein."

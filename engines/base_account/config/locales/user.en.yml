@@ -1,0 +1,37 @@
+en:
+  activerecord:
+    errors:
+      models:
+        request_password_reset:
+          attributes:
+            email:
+              blank: "You have to enter an e-mail address"
+        password_reset:
+          attributes:
+            password:
+              blank: "You have to enter a new password"
+              too_short: "Password too short (at least 8 characters)"
+
+  base_account:
+    user:
+      password_reset:
+        new:
+          headline: "Reset password"
+          email_field_label: "E-Mail"
+          submit_password_reset_request_button: "Submit"
+          failure: "Your password could not be reset"
+        edit:
+          headline: "Set new password"
+          password_field_label: "Password"
+          submit_password_reset_button: "Submit"
+
+  flash:
+    user:
+      request_password_reset:
+        create:
+          success_html: "An e-mail containing reset instructions was sent to %{email}"
+          failure: "Your password could not be reset"
+      password_reset:
+        edit:
+          success: "Password reset was successful. You may login now"
+          failure: "Your password could not be reset"

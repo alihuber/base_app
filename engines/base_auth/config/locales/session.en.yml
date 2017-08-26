@@ -1,0 +1,48 @@
+en:
+  active_interaction:
+    errors:
+      models:
+        base_auth/api/authorize_api_request:
+          attributes:
+            headers:
+              missing: "cannot be blank"
+              invalid_nested: "invalid format"
+
+  activerecord:
+    errors:
+      models:
+        login:
+          attributes:
+            email:
+              blank: "You have to enter an e-mail address"
+            password:
+              blank: "You have to enter a password"
+
+  base_auth:
+    # from base_auth application_helper login/logout links on main nav
+    helpers:
+      register_link: "Register"
+      login_link: "Login"
+      logout_link: "Logout"
+      logged_in_as: "%{email}"
+    session:
+      session:
+        new:
+          headline: "Login"
+          email_field_label: "E-Mail"
+          password_field_label: "Password"
+          forgot_password: "Forgot your password?"
+          remember_me: "Remember me"
+          submit_login_button: "Log in"
+
+  flash:
+    user:
+      session:
+        create:
+          success: "Login successful"
+          failure: "Invalid e-mail/password combination"
+        destroy:
+          success: "Logout successful"
+    admin:
+      authentication:
+        not_logged_in: "Please log in"

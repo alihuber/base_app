@@ -2,8 +2,8 @@ module Features
   module SessionHelpers
     def login(user)
       visit base_auth.login_path
-      fill_in "user_session_login_email",    with: user.email
-      fill_in "user_session_login_password", with: user.password
+      fill_in "session_create_session_login_email",    with: user.email
+      fill_in "session_create_session_login_password", with: user.password
       click_button "submit_login"
     end
 

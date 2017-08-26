@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+gem "base_mailer",   path: "../base_mailer"
+gemspec
+
+# normally gems listed here are loaded by dummy app. All tests run on main app
+# and use the real engines: no extra gems
+# gem "turbolinks"
+#

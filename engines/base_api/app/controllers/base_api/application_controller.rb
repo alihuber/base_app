@@ -6,7 +6,7 @@ module BaseApi
     private
     def authenticate_request
       token         = request.headers["Authorization"] || {}
-      @current_user = BaseAuth::User::AuthorizeApiRequest.run(
+      @current_user = BaseAuth::Api::AuthorizeApiRequest.run(
         {"headers" => {"Authorization" => token}}
       ).result
       render json: { error: "Not Authorized" }, status: 401 unless @current_user
