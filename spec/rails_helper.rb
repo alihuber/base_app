@@ -4,9 +4,9 @@ ENV["RAILS_ENV"] ||= "test"
 
 require "simplecov"
 SimpleCov.start "rails" do
-  add_group "Interactions", "engines/base_auth/app/interactions"
-  add_group "Interactions", "engines/base_api/app/interactions"
-  add_group "Interactions", "engines/base_account/app/interactions"
+  add_group "Interactions", ["engines/base_auth/app/interactions",
+                             "engines/base_api/app/interactions",
+                             "engines/base_account/app/interactions"]
 end
 
 require File.expand_path("../../config/environment", __FILE__)

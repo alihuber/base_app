@@ -66,4 +66,94 @@ feature "User API" do
     expect(last_response.body).to include admin_user.email
     expect(last_response.body).to include admin_user.id.to_s
   end
+
+  scenario "accessing specific user URL authenticated as normal user",
+    type: :api do
+      header "Authorization", user_token
+      get "/user/id/#{user.id}"
+
+      expect(last_response.status).to be 401
+      expect(last_response.body).to include "Not Authorized"
+  end
+
+  scenario "accessing specific user URL authenticated as admin user",
+    type: :api do
+      header "Authorization", admin_token
+      get "/user/id/#{user.id}"
+
+      expect(last_response.status).to be 200
+      expect(last_response.body).to include user.email
+      expect(last_response.body).to include user.id.to_s
+  end
+
+  scenario "accessing not existent user URL authenticated as admin user",
+    type: :api do
+      header "Authorization", admin_token
+      get "/user/id/#{user.id.to_s + 'abc'}"
+
+      expect(last_response.status).to be 404
+  end
+
+  scenario "accessing update user URL authenticated as normal user",
+    type: :api do
+      header "Authorization", user_token
+      put "/user/id/#{user.id}", Hash[:user =>
+                                 {:email => user.email,
+                                 :password => "some.foo",
+                                 :password_confirmation => "some.foo"} ]
+
+      expect(last_response.status).to be 401
+      expect(last_response.body).to include "Not Authorized"
+  end
+
+  scenario "updating user", type: :api do
+    header "Authorization", admin_token
+    put "/user/id/#{user.id}", Hash[:user =>
+                                {:email => "new@example.com",
+                                :password => "some.foo",
+                                :password_confirmation => "some.foo"} ]
+
+    expect(last_response.status).to be 200
+    expect(last_response.body).to include "new@example.com"
+    expect(last_response.body).to include user.id.to_s
+  end
+
+  scenario "updating user with invalid data", type: :api do
+    header "Authorization", admin_token
+    put "/user/id/#{user.id}", Hash[:user =>
+                                {:email => "new@example.com",
+                                :password => "some.oof",
+                                :password_confirmation => "some.foo"} ]
+
+    expect(last_response.status).to be 422
+    expect(last_response.body).to eq(
+      '{"error":{"password":["passwords do not match"]}}'
+    )
+  end
+
+  scenario "accessing delete user URL authenticated as normal user",
+    type: :api do
+      header "Authorization", user_token
+      delete "/user/id/#{user.id}"
+
+      expect(last_response.status).to be 401
+      expect(last_response.body).to include "Not Authorized"
+  end
+
+  scenario "deleting user", type: :api do
+    header "Authorization", admin_token
+    delete "/user/id/#{user.id}"
+
+    expect(last_response.status).to be 200
+    expect(last_response.body).to include user.email
+    expect(last_response.body).to include user.id.to_s
+    expect(BaseAuth::User.count).to eq 1
+  end
+
+  scenario "deleting not existent user", type: :api do
+    header "Authorization", admin_token
+    delete "/user/id/#{user.id + 42}"
+
+    expect(last_response.status).to be 404
+  end
 end

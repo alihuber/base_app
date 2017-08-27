@@ -74,6 +74,26 @@ feature "profile editing" do
     expect(page).to have_css ".alert-success"
   end
 
+  scenario "invalid password params" do
+    login(user)
+    visit base_account.profile_path(user.id)
+
+    fill_in "newPasswordInput", with: "123456"
+    fill_in "passwordConfirmationInput", with: "654321"
+    click_button "submitProfile"
+
+    expect(page).to have_css ".alert-danger"
+    expect(current_path).to eq base_account.profile_path(user.id)
+  end
+
+  scenario "access not existing user" do
+    login(user)
+    begin
+      visit base_account.profile_path(user.id + 42)
+    rescue(ActionController::RoutingError) => e
+      expect(e.message).to eq "Not Found"
+    end
+  end
 
   scenario "profile JavaScript validations", js: true do
     login(user)
