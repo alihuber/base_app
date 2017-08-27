@@ -26,6 +26,16 @@ module BaseApi
       end
     end
 
+    def create
+      outcome = BaseApi::Users::CreateUser.run(params[:user])
+      if(outcome.valid?)
+        @user = outcome.result if outcome.valid?
+        render :show, status: :created
+      else
+        render json: { error: outcome.errors }, status: 422
+      end
+    end
+
     def destroy
       outcome = BaseApi::Users::DeleteUser.run(params)
       if(outcome.valid?)

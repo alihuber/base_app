@@ -99,8 +99,8 @@ feature "User API" do
       header "Authorization", user_token
       put "/user/id/#{user.id}", Hash[:user =>
                                  {:email => user.email,
-                                 :password => "some.foo",
-                                 :password_confirmation => "some.foo"} ]
+                                  :password => "some.foo",
+                                  :password_confirmation => "some.foo"} ]
 
       expect(last_response.status).to be 401
       expect(last_response.body).to include "Not Authorized"
@@ -122,8 +122,8 @@ feature "User API" do
     header "Authorization", admin_token
     put "/user/id/#{user.id}", Hash[:user =>
                                 {:email => "new@example.com",
-                                :password => "some.oof",
-                                :password_confirmation => "some.foo"} ]
+                                 :password => "some.oof",
+                                 :password_confirmation => "some.foo"} ]
 
     expect(last_response.status).to be 422
     expect(last_response.body).to eq(
@@ -155,5 +155,58 @@ feature "User API" do
     delete "/user/id/#{user.id + 42}"
 
     expect(last_response.status).to be 404
+  end
+
+  scenario "accessing create user URL authenticated as normal user",
+    type: :api do
+      header "Authorization", user_token
+      post "/users", Hash[:user =>
+                          {:email => "foo@bar.com",
+                           :password => "some.foo"} ]
+
+      expect(last_response.status).to be 401
+      expect(last_response.body).to include "Not Authorized"
+  end
+
+  scenario "create user", type: :api do
+    header "Authorization", admin_token
+    post "/users", Hash[:user =>
+                        {:email => "foo@bar.com",
+                         :password => "some.foo"} ]
+
+    expect(last_response.status).to be 201
+    expect(last_response.body).to include "foo@bar.com"
+  end
+
+  scenario "create invalid user (too short password)", type: :api do
+    header "Authorization", admin_token
+    post "/users", Hash[:user =>
+                        {:email => "foo@bar.com",
+                          :password => "some"} ]
+
+    expect(last_response.status).to be 422
+    expect(last_response.body).to include '{"error":{"password":'
+    expect(last_response.body).to include "6"
+  end
+
+  scenario "create invalid user (no password)", type: :api do
+    header "Authorization", admin_token
+    post "/users", Hash[:user =>
+                        {:email => "foo@bar.com",
+                         :password => ""} ]
+
+    expect(last_response.status).to be 422
+    expect(last_response.body).to include '{"error":{"password":'
+    expect(last_response.body).to include "6"
+  end
+
+  scenario "create invalid user (no email)", type: :api do
+    header "Authorization", admin_token
+    post "/users", Hash[:user =>
+                        {:email => "",
+                         :password => "some.foo"} ]
+
+    expect(last_response.status).to be 422
+    expect(last_response.body).to include '{"error":{"email":'
   end
 end
