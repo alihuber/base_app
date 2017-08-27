@@ -32,7 +32,8 @@ feature "user authentication" do
     expect(page).to have_css ".alert-danger"
 
     # password reset succeeds
-    fill_in "user_edit_password_reset_password_reset_password", with: "new_password"
+    fill_in "user_edit_password_reset_password_reset_password",
+      with: "new_password"
     expect {
       click_button "submit_password_reset"
     }.to change { admin_user.reload.password_reset_sent_at }
@@ -70,5 +71,29 @@ feature "user authentication" do
     visit base_account.do_password_reset_path(token: "")
 
     expect(current_path).to eq base_account.password_reset_path + "/"
+  end
+
+  scenario "request password reset JavaScript validations", js: true do
+    visit base_account.password_reset_path
+    fill_in "user_request_password_reset_password_reset_email",
+      with: admin_user.email
+    click_button "submit_password_reset_request"
+    expect(current_path).to eq main_app.root_path
+    expect(page).to have_css ".alert-success"
+    admin_user.reload
+    reset_url =
+      base_account.do_password_reset_path(token: admin_user.password_reset_token)
+
+    visit reset_url
+
+    expect(page).to have_css("#submit_password_reset[disabled]")
+
+    fill_in "user_edit_password_reset_password_reset_password", with: "1"
+    expect(page).to have_css("#submit_password_reset[disabled]")
+    expect(page).to have_css(".ng-invalid-minlength")
+
+    fill_in "user_edit_password_reset_password_reset_password", with: "1234567"
+    expect(page).not_to have_css("#submit_password_reset[disabled]")
+    expect(page).not_to have_css(".ng-invalid-minlength")
   end
 end

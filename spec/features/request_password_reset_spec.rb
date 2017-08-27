@@ -46,4 +46,21 @@ feature "user authentication" do
     expect(admin_user.password_reset_sent_at.to_date).to eq Time.zone.today
     expect(admin_user.password_reset_token).to be_present
   end
+
+  scenario "request password reset JavaScript validations", js: true do
+    visit main_app.root_path
+    click_link "login_link"
+    click_link "forgot_password_link"
+
+    expect(page).to have_css("#submit_password_reset_request[disabled]")
+
+    fill_in "user_request_password_reset_password_reset_email", with: "foo"
+    expect(page).to have_css("#submit_password_reset_request[disabled]")
+    expect(page).to have_css(".ng-invalid-email")
+
+    fill_in "user_request_password_reset_password_reset_email",
+      with: "foo@bar.com"
+    expect(page).not_to have_css("#submit_password_reset_request[disabled]")
+    expect(page).not_to have_css(".ng-invalid-email")
+  end
 end

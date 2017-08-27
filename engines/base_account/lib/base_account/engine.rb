@@ -32,6 +32,7 @@ module BaseAccount
       Rails.application.config.assets.precompile += %w(
         base_account/requestPasswordResetCtrl.js
         base_account/editPasswordResetCtrl.js
+        base_account/profileCtrl.js
       )
 
       ::ApplicationController.class_eval do

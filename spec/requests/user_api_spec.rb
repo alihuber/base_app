@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "API" do
+feature "User API" do
   let!(:admin_user) { create :admin_user }
   let!(:user)       { create :user }
   let(:admin_token) { JsonWebToken.instance.encode(user_id: admin_user.id) }

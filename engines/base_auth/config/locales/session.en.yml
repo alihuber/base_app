@@ -43,6 +43,8 @@ en:
           failure: "Invalid e-mail/password combination"
         destroy:
           success: "Logout successful"
+      authentication:
+        not_logged_in: "Please log in"
     admin:
       authentication:
         not_logged_in: "Please log in"

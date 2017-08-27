@@ -58,7 +58,8 @@ nav.navbar.navbar-default.navbar-fixed-top role="navigation"
         - else
           li
             = link_to t("base_auth.helpers.logged_in_as",
-              email: current_user.email)
+              email: current_user.email),
+              base_account.profile_path(current_user.id)
           li = logout_link
         / - if admin_signed_in?
         /   li = admin_link

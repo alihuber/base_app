@@ -1,0 +1,25 @@
+de:
+  active_interaction:
+    errors:
+      models:
+        base_account/user/find_user:
+          attributes:
+            id:
+              invalid_type: "kein gültiges Format"
+
+  base_account:
+    user:
+      profile:
+        show:
+          headline: "Profil"
+          email_field_label: "E-Mail"
+          new_password_field_label: "Neues Passwort"
+          password_confirmation_field_label: "Neues Passwort wiederholen"
+          passwords_not_equal: "Keine Übereinstimmung"
+          submit_profile_button: "Speichern"
+
+  flash:
+    profile:
+      update:
+        success: "Profil wurde erfolgreich aktualisiert"
+        faile: "Profil speichern nicht erfolgreich"

@@ -32,3 +32,8 @@ label.required:after {
   border-color: darkgreen;
   outline-color: darkgreen;
 }
+
+.ng-empty.ng-dirty {
+  border-color: #ccc;
+  outline-color: #ccc;
+}

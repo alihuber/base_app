@@ -5,6 +5,8 @@ ENV["RAILS_ENV"] ||= "test"
 require "simplecov"
 SimpleCov.start "rails" do
   add_group "Interactions", "engines/base_auth/app/interactions"
+  add_group "Interactions", "engines/base_api/app/interactions"
+  add_group "Interactions", "engines/base_account/app/interactions"
 end
 
 require File.expand_path("../../config/environment", __FILE__)
@@ -18,6 +20,10 @@ require "capybara/rails"
 require "capybara/rspec"
 
 Capybara.server_port = 31337
+Capybara.register_driver :selenium_firefox do |app|
+  Capybara::Selenium::Driver.new(app, browser: :firefox, marionette: true)
+end
+Capybara.javascript_driver = :selenium_firefox
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -42,17 +48,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
-    # Choose a test framework:
     with.test_framework :rspec
-    # with.test_framework :minitest
-    # with.test_framework :minitest_4
-    # with.test_framework :test_unit
-
-    # Choose one or more libraries:
-    # with.library :active_record
-    # with.library :active_model
-    # with.library :action_controller
-    # Or, choose the following (which implies all of the above):
     with.library :rails
   end
 end

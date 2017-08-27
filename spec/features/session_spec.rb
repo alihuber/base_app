@@ -6,12 +6,6 @@ feature "session handling" do
   scenario "login" do
     visit main_app.root_path
 
-    # validations
-    click_link "login_link"
-    click_button "submit_login"
-    expect(page).to have_css ".help-block", count: 2
-
-
     click_link "login_link"
     fill_in "session_create_session_login_email",    with: admin_user.email
     fill_in "session_create_session_login_password", with: admin_user.password
@@ -58,5 +52,24 @@ feature "session handling" do
     expect(get_me_the_cookie("auth_token")[:value]).to eq ""
     expect(page).to have_css ".alert-success"
     expect(current_path).to eq main_app.root_path
+  end
+
+  scenario "login JavaScript validations", js: true do
+    visit main_app.root_path
+
+    click_link "login_link"
+    expect(page).to have_css("#submit_login[disabled]")
+
+    fill_in "session_create_session_login_email",    with: "foo"
+    fill_in "session_create_session_login_password", with: "1"
+    expect(page).to have_css("#submit_login[disabled]")
+    expect(page).to have_css(".ng-invalid-email")
+    expect(page).to have_css(".ng-invalid-minlength")
+
+    fill_in "session_create_session_login_email",    with: "foo@mar.com"
+    fill_in "session_create_session_login_password", with: "1234567"
+    expect(page).not_to have_css("#submit_login[disabled]")
+    expect(page).not_to have_css(".ng-invalid-email")
+    expect(page).not_to have_css(".ng-invalid-minlength")
   end
 end

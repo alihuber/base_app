@@ -6,10 +6,10 @@ module AuthenticationConcern
     helper_method :current_user
 
     # needed for friendly forwarding/before filter in controllers
-    helper_method :login_admin
     helper_method :admin_signed_in?
     helper_method :user_signed_in?
-    # helper_method :login_user
+    helper_method :login_user
+    # helper_method :login_admin
   end
 
 
@@ -27,24 +27,24 @@ module AuthenticationConcern
   end
 
 
-  # def login_user
-  #   unless user_signed_in?
-  #     session["redirect_url_after_login"] = request.original_url
-
-  #     flash.alert = t "flash.user.authentication.not_logged_in"
-  #     redirect_to login_path
-  #   end
-  # end
-
-
-  def login_admin
-    unless admin_signed_in?
+  def login_user
+    unless user_signed_in?
       session["redirect_url_after_login"] = request.original_url
 
-      flash.alert = t "flash.admin.authentication.not_logged_in"
+      flash.alert = t "flash.user.authentication.not_logged_in"
       redirect_to base_auth.login_path
     end
   end
+
+
+  # def login_admin
+  #   unless admin_signed_in?
+  #     session["redirect_url_after_login"] = request.original_url
+
+  #     flash.alert = t "flash.admin.authentication.not_logged_in"
+  #     redirect_to base_auth.login_path
+  #   end
+  # end
 
 
   def user_signed_in?

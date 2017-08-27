@@ -1,0 +1,25 @@
+en:
+  active_interaction:
+    errors:
+      models:
+        base_account/user/find_user:
+          attributes:
+            id:
+              invalid_type: "invalid format"
+
+  base_account:
+    user:
+      profile:
+        show:
+          headline: "Profile"
+          email_field_label: "E-Mail"
+          new_password_field_label: "New password"
+          password_confirmation_field_label: "Repeat new password"
+          passwords_not_equal: "Does not match"
+          submit_profile_button: "Save"
+
+  flash:
+    profile:
+      update:
+        success: "Profile was saved successfully"
+        failure: "Saving profile not successful"

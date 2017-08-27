@@ -1,0 +1,30 @@
+= content_for :angular_js do
+  = javascript_include_tag("base_account/profileCtrl")
+
+.container ng-controller="profileCtrl"
+  .col-md-6.col-md-offset-3
+    h1= t ".headline"
+
+
+    = bootstrap_form_for @form, url: profile_path,
+      html: {name: "profileForm", novalidate: true} do |f|
+      = f.email_field :email, label: t(".email_field_label"),
+        placeholder: @form.email,
+        data: {"ng-model" => "email"}
+
+      = f.password_field :password, label: t(".new_password_field_label"),
+        id: "newPasswordInput", data: {"ng-model" => "new_password",
+        "ng-minlength" => 6}
+
+      = f.password_field :password_confirmation,
+        label: t(".password_confirmation_field_label"),
+        id: "passwordConfirmationInput",
+        data: {"ng-model" => "password_confirmation",
+        "ng-required" => "profileForm.newPasswordInput.$touched",
+        "ng-minlength" => 6, "toggle"=>"tooltip",
+        "title" => t(".passwords_not_equal")}
+
+      = f.button t(".submit_profile_button"),
+        id: "submitProfile", class: "btn btn-default",
+        data: {"ng-disabled" => \
+        "profileForm.$invalid || notSamePasswords() || noFieldsSet()"}

@@ -74,7 +74,7 @@ group :test do
   gem "factory_girl_rails"
   gem "faker"
   gem "launchy"
-  # gem "poltergeist"
+  gem "selenium-webdriver"
   gem "show_me_the_cookies"
   gem "simplecov", require: false
   gem "shoulda-matchers"

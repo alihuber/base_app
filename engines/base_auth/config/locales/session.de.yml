@@ -43,6 +43,8 @@ de:
           failure: "Ungültige E-Mail/Passwort-Kombination"
         destroy:
           success: "Logout erfolgreich"
+      authentication:
+        not_logged_in: "Bitte loggen sie sich ein."
     admin:
       authentication:
         not_logged_in: "Bitte loggen sie sich ein."
