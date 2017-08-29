@@ -1,12 +1,12 @@
 require "rails_helper"
 
-feature "User API" do
+feature "User API", type: :api do
   let!(:admin_user) { create :admin_user }
   let!(:user)       { create :user }
   let(:admin_token) { JsonWebToken.instance.encode(user_id: admin_user.id) }
   let(:user_token)  { JsonWebToken.instance.encode(user_id: user.id) }
 
-  scenario "authenticate via API", type: :api do
+  scenario "authenticate via API with credentials" do
     post "/authenticate", Hash[:authentication =>
                                 {:email => user.email,
                                  :password => user.password} ]
@@ -17,14 +17,14 @@ feature "User API" do
     expect(decoded_token[:user_id]).to eq user.id
   end
 
-  scenario "authenticate via API with no headers", type: :api do
+  scenario "authenticate via API with no headers" do
     post "/authenticate"
 
     expect(last_response.status).to be 401
     expect(last_response.body).to include "authentication failed"
   end
 
-  scenario "authenticate via API with invalid combination", type: :api do
+  scenario "authenticate via API with invalid combination" do
     post "/authenticate", Hash[:authentication =>
                                 {:email => user.email,
                                  :password => "some.foo"} ]
@@ -33,22 +33,20 @@ feature "User API" do
     expect(last_response.body).to include "authentication failed"
   end
 
-  scenario "authenticate via API with wrong credentials", type: :api do
+  scenario "authenticate via API with wrong credentials" do
     post "/authenticate", Hash[:authentication => {:foo => "foo"}]
 
     expect(last_response.status).to be 401
     expect(last_response.body).to include 'email":['
-    expect(last_response.body).to include 'password":['
   end
 
-  scenario "accessing users with no header", type: :api do
+  scenario "accessing users with no header" do
     get "/users"
 
     expect(last_response.status).to be 401
   end
 
-  scenario "accessing users resource authenticated as normal user",
-    type: :api do
+  scenario "accessing users resource authenticated as normal user" do
       header "Authorization", user_token
       get "/users"
 
@@ -56,7 +54,7 @@ feature "User API" do
       expect(last_response.body).to include "Not Authorized"
   end
 
-  scenario "accessing users resource authenticated as admin user", type: :api do
+  scenario "accessing users resource authenticated as admin user" do
     header "Authorization", admin_token
     get "/users"
 
@@ -67,8 +65,7 @@ feature "User API" do
     expect(last_response.body).to include admin_user.id.to_s
   end
 
-  scenario "accessing specific user URL authenticated as normal user",
-    type: :api do
+  scenario "accessing specific user URL authenticated as normal user" do
       header "Authorization", user_token
       get "/user/id/#{user.id}"
 
@@ -76,8 +73,7 @@ feature "User API" do
       expect(last_response.body).to include "Not Authorized"
   end
 
-  scenario "accessing specific user URL authenticated as admin user",
-    type: :api do
+  scenario "accessing specific user URL authenticated as admin user" do
       header "Authorization", admin_token
       get "/user/id/#{user.id}"
 
@@ -86,16 +82,14 @@ feature "User API" do
       expect(last_response.body).to include user.id.to_s
   end
 
-  scenario "accessing not existent user URL authenticated as admin user",
-    type: :api do
+  scenario "accessing not existent user URL authenticated as admin user" do
       header "Authorization", admin_token
       get "/user/id/#{user.id.to_s + 'abc'}"
 
       expect(last_response.status).to be 404
   end
 
-  scenario "accessing update user URL authenticated as normal user",
-    type: :api do
+  scenario "accessing update user URL authenticated as normal user" do
       header "Authorization", user_token
       put "/user/id/#{user.id}", Hash[:user =>
                                  {:email => user.email,
@@ -106,7 +100,7 @@ feature "User API" do
       expect(last_response.body).to include "Not Authorized"
   end
 
-  scenario "updating user", type: :api do
+  scenario "updating user" do
     header "Authorization", admin_token
     put "/user/id/#{user.id}", Hash[:user =>
                                 {:email => "new@example.com",
@@ -118,7 +112,7 @@ feature "User API" do
     expect(last_response.body).to include user.id.to_s
   end
 
-  scenario "updating user with invalid data", type: :api do
+  scenario "updating user with invalid data" do
     header "Authorization", admin_token
     put "/user/id/#{user.id}", Hash[:user =>
                                 {:email => "new@example.com",
@@ -131,8 +125,7 @@ feature "User API" do
     )
   end
 
-  scenario "accessing delete user URL authenticated as normal user",
-    type: :api do
+  scenario "accessing delete user URL authenticated as normal user" do
       header "Authorization", user_token
       delete "/user/id/#{user.id}"
 
@@ -140,7 +133,7 @@ feature "User API" do
       expect(last_response.body).to include "Not Authorized"
   end
 
-  scenario "deleting user", type: :api do
+  scenario "deleting user" do
     header "Authorization", admin_token
     delete "/user/id/#{user.id}"
 
@@ -150,15 +143,14 @@ feature "User API" do
     expect(BaseAuth::User.count).to eq 1
   end
 
-  scenario "deleting not existent user", type: :api do
+  scenario "deleting not existent user" do
     header "Authorization", admin_token
     delete "/user/id/#{user.id + 42}"
 
     expect(last_response.status).to be 404
   end
 
-  scenario "accessing create user URL authenticated as normal user",
-    type: :api do
+  scenario "accessing create user URL authenticated as normal user" do
       header "Authorization", user_token
       post "/users", Hash[:user =>
                           {:email => "foo@bar.com",
@@ -168,7 +160,7 @@ feature "User API" do
       expect(last_response.body).to include "Not Authorized"
   end
 
-  scenario "create user", type: :api do
+  scenario "create user" do
     header "Authorization", admin_token
     post "/users", Hash[:user =>
                         {:email => "foo@bar.com",
@@ -178,7 +170,7 @@ feature "User API" do
     expect(last_response.body).to include "foo@bar.com"
   end
 
-  scenario "create invalid user (too short password)", type: :api do
+  scenario "create invalid user (too short password)" do
     header "Authorization", admin_token
     post "/users", Hash[:user =>
                         {:email => "foo@bar.com",
@@ -189,7 +181,7 @@ feature "User API" do
     expect(last_response.body).to include "6"
   end
 
-  scenario "create invalid user (no password)", type: :api do
+  scenario "create invalid user (no password)" do
     header "Authorization", admin_token
     post "/users", Hash[:user =>
                         {:email => "foo@bar.com",
@@ -200,7 +192,7 @@ feature "User API" do
     expect(last_response.body).to include "6"
   end
 
-  scenario "create invalid user (no email)", type: :api do
+  scenario "create invalid user (no email)" do
     header "Authorization", admin_token
     post "/users", Hash[:user =>
                         {:email => "",

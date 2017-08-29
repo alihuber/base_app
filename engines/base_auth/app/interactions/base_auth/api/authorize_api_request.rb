@@ -11,6 +11,7 @@ module BaseAuth
       private
       def user
         @user ||= User.find(decoded_token[:user_id]) if decoded_token
+        @user ||= User.find_by(auth_token: token) if token
         @user || errors.add(:token, "Invalid token") && nil
       end
 

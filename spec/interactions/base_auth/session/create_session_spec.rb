@@ -9,7 +9,7 @@ module BaseAuth
   end
 
   describe Session::CreateSession, type: :model do
-    let!(:user)          { create :admin_user }
+    let!(:user)          { create :user }
     let(:login_params)   { Hash[email: user.email, password: user.password] }
     let(:wrong_params)   { Hash[email: user.email, password: "wrong"] }
     let(:blank_params_1) { Hash[email: user.email, password: ""] }

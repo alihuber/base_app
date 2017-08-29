@@ -1,0 +1,85 @@
+javascript:
+  window.localStorage['session-token'] = "#{current_user.auth_token}"
+
+= stylesheet_link_tag("base_admin/application")
+
+= content_for :angular_js do
+  = javascript_include_tag("base_admin/dashboardCtrl")
+
+.container ng-controller="dashboardCtrl"
+  .col-md-8.col-md-offset-2
+    .row
+      .col-md-6.col-md-offset-3
+        div ng-class="alertClass()" role="alert" ng-if="messageMode"
+          button.close aria-label="Close" data-dismiss="alert" type="button" ng-click="dismissMessage()"
+            span aria-hidden="true"  &times;
+          p ng-bind="messageMode[1]"
+
+    h1 Dashboard
+    p
+      button.btn.btn-primary.btn-xs type="button" ng-click="toggleEditMode()" Toggle edit mode
+    p
+      button.btn.btn-success.btn-xs data-target="#userModal" data-toggle="modal" type="button" ng-click="newUser()"
+        | New user
+
+    table.table.users-table
+      thead
+        tr
+          th Id
+          th Email
+          th Created at
+          th Updated at
+          th Admin?
+          th ng-if="editMode" Save
+          th ng-if="editMode" Delete
+      tbody ng-if="editMode"
+        tr(ng-repeat="user in users | orderBy: '-updatedAt'")
+          td ng-bind="user.id"
+          td
+            form name="innerForm"
+              .form-group
+                input.form-control placeholder="E-Mail" type="email" ng-model="user.email" name="innerEmail"
+          td ng-bind="user.createdAt | date: 'dd.MM.yyyy, HH:mm'"
+          td ng-bind="user.updatedAt | date: 'dd.MM.yyyy, HH:mm'"
+          td
+            span.glyphicon.glyphicon-check(ng-if="user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
+            span.glyphicon.glyphicon-unchecked(ng-if="!user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
+          td ng-if="innerForm.innerEmail.$valid && user.email.length !== 0"
+            a(href="#" ng-click="saveUser(user)")
+              span.glyphicon.glyphicon-ok(aria-hidden="true")
+          td ng-if="!innerForm.innerEmail.$valid"
+          td ng-if="user.email.length === 0"
+          td ng-if="user.type !== 'BaseAuth::User::AdminUser'"
+            a(href="#" ng-click="deleteUser(user.id)")
+              span.glyphicon.glyphicon-remove(aria-hidden="true")
+
+      tbody ng-if="!editMode"
+        tr(ng-repeat="user in users | orderBy: '-updatedAt'")
+          td ng-bind="user.id"
+          td ng-bind="user.email"
+          td ng-bind="user.createdAt | date: 'dd.MM.yyyy, HH:mm'"
+          td ng-bind="user.updatedAt | date: 'dd.MM.yyyy, HH:mm'"
+          td
+            span.glyphicon.glyphicon-check(ng-if="user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
+            span.glyphicon.glyphicon-unchecked(ng-if="!user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
+          td ng-if="'{{formName}}.{{emailName}}'.$valid && editMode"
+            a(href="#" ng-click="saveUser(user)")
+              span.glyphicon.glyphicon-ok(aria-hidden="true")
+
+
+
+  #userModal.modal.fade aria-labelledby="userModalLabel" role="dialog" tabindex="-1"
+    .modal-dialog role="document"
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button"
+            span aria-hidden="true"  &times;
+          h4#userModalLabel.modal-title New user
+        .modal-body
+          form name="userForm"
+            .form-group
+              input.form-control placeholder="E-Mail" type="email" ng-model="newUser.email" ng-required="true" name="newUserEmail"
+              input.form-control placeholder="Password" type="password" ng-model="newUser.password" ng-required="true" ng-minlength=6 name="newUserPassword"
+        .modal-footer
+          button.btn.btn-default data-dismiss="modal" type="button" ng-click="dismiss()" Close
+          button.btn.btn-primary data-dismiss="modal" type="button" ng-click="createUser()" ng-disabled="userForm.$invalid" Save

@@ -1,7 +1,7 @@
 module BaseAccount
   module User
     class UpdateUser < ActiveInteraction::Base
-      object :user, class: BaseAuth::User
+      object :user,  class: BaseAuth::User
       string :email, :password, :password_confirmation
 
       validates :password, length: { minimum: 6 }, allow_blank: true
