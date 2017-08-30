@@ -1,0 +1,19 @@
+#userModal.modal.fade aria-labelledby="userModalLabel" role="dialog" tabindex="-1"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+        h4#userModalLabel.modal-title New user
+      .modal-body
+        form name="userForm"
+          .form-group
+            input.form-control placeholder="E-Mail" type="email" ng-model="\
+            newUser.email" ng-required="true" name="newUserEmail"
+            input.form-control placeholder="Password" type="password" ng-model="\
+            newUser.password" ng-required="true" ng-minlength=6 name="newUserPassword"
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button" ng-click="dismiss()" Close
+        button.btn.btn-primary#createUserButton data-dismiss="modal" type="\
+        button" ng-click="createUser()" ng-disabled="userForm.$invalid" Save
+

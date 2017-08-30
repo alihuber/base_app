@@ -1,0 +1,56 @@
+p
+  button.btn.btn-primary.btn-xs#editModeButton type="button" ng-click="\
+  toggleEditMode()" Toggle edit mode
+p
+  button.btn.btn-success.btn-xs#newUserButton data-target="#userModal" ng-click="\
+  newUser()" data-toggle="modal" type="button"
+    | New user
+
+table.table.users-table
+  thead
+    tr
+      th Id
+      th Email
+      th Created at
+      th Updated at
+      th Admin?
+      th ng-if="editMode" Save
+      th ng-if="editMode" Delete
+  tbody ng-if="editMode"
+    tr(ng-repeat="user in users | orderBy: '-updatedAt'")
+      td ng-bind="user.id"
+      td
+        form name="innerForm"
+          .form-group
+            input.form-control placeholder="E-Mail" type="email" ng-model="\
+            user.email" name="innerEmail" id="userInput{{user.id}}"
+      td ng-bind="user.createdAt | date: 'dd.MM.yyyy, HH:mm'"
+      td ng-bind="user.updatedAt | date: 'dd.MM.yyyy, HH:mm'"
+      td
+        span.glyphicon.glyphicon-check(ng-if="user.type === \
+        'BaseAuth::User::AdminUser'" aria-hidden="true")
+        span.glyphicon.glyphicon-unchecked(ng-if="!user.type === \
+        'BaseAuth::User::AdminUser'" aria-hidden="true")
+      td ng-if="innerForm.innerEmail.$valid && user.email.length !== 0"
+        a(href="#" ng-click="saveUser(user)" id="saveUser{{user.id}}")
+          span.glyphicon.glyphicon-ok(aria-hidden="true")
+      td ng-if="!innerForm.innerEmail.$valid"
+      td ng-if="user.email.length === 0"
+      td ng-if="user.type !== 'BaseAuth::User::AdminUser'"
+        a(href="#" ng-click="deleteUser(user.id)" id="deleteUser{{user.id}}")
+          span.glyphicon.glyphicon-remove(aria-hidden="true")
+
+  tbody ng-if="!editMode"
+    tr(ng-repeat="user in users | orderBy: '-updatedAt'")
+      td ng-bind="user.id"
+      td ng-bind="user.email"
+      td ng-bind="user.createdAt | date: 'dd.MM.yyyy, HH:mm'"
+      td ng-bind="user.updatedAt | date: 'dd.MM.yyyy, HH:mm'"
+      td
+        span.glyphicon.glyphicon-check(ng-if="user.type === \
+        'BaseAuth::User::AdminUser'" aria-hidden="true")
+        span.glyphicon.glyphicon-unchecked(ng-if="!user.type === \
+        'BaseAuth::User::AdminUser'" aria-hidden="true")
+      td ng-if="'{{formName}}.{{emailName}}'.$valid && editMode"
+        a(href="#" ng-click="saveUser(user)")
+          span.glyphicon.glyphicon-ok(aria-hidden="true")
