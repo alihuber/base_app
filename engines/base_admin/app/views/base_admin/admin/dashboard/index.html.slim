@@ -11,15 +11,18 @@ javascript:
     .row
       .col-md-6.col-md-offset-3
         div ng-class="alertClass()" role="alert" ng-if="messageMode"
-          button.close aria-label="Close" data-dismiss="alert" type="button" ng-click="dismissMessage()"
+          button.close aria-label="Close" data-dismiss="alert" type="\
+          button" ng-click="dismissMessage()"
             span aria-hidden="true"  &times;
           p ng-bind="messageMode[1]"
 
     h1 Dashboard
     p
-      button.btn.btn-primary.btn-xs type="button" ng-click="toggleEditMode()" Toggle edit mode
+      button.btn.btn-primary.btn-xs#editModeButton type="button" ng-click="\
+      toggleEditMode()" Toggle edit mode
     p
-      button.btn.btn-success.btn-xs data-target="#userModal" data-toggle="modal" type="button" ng-click="newUser()"
+      button.btn.btn-success.btn-xs#newUserButton data-target="#userModal" ng-click="\
+      newUser()" data-toggle="modal" type="button"
         | New user
 
     table.table.users-table
@@ -38,19 +41,22 @@ javascript:
           td
             form name="innerForm"
               .form-group
-                input.form-control placeholder="E-Mail" type="email" ng-model="user.email" name="innerEmail"
+                input.form-control placeholder="E-Mail" type="email" ng-model="\
+                user.email" name="innerEmail" id="userInput{{user.id}}"
           td ng-bind="user.createdAt | date: 'dd.MM.yyyy, HH:mm'"
           td ng-bind="user.updatedAt | date: 'dd.MM.yyyy, HH:mm'"
           td
-            span.glyphicon.glyphicon-check(ng-if="user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
-            span.glyphicon.glyphicon-unchecked(ng-if="!user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
+            span.glyphicon.glyphicon-check(ng-if="user.type === \
+            'BaseAuth::User::AdminUser'" aria-hidden="true")
+            span.glyphicon.glyphicon-unchecked(ng-if="!user.type === \
+            'BaseAuth::User::AdminUser'" aria-hidden="true")
           td ng-if="innerForm.innerEmail.$valid && user.email.length !== 0"
-            a(href="#" ng-click="saveUser(user)")
+            a(href="#" ng-click="saveUser(user)" id="saveUser{{user.id}}")
               span.glyphicon.glyphicon-ok(aria-hidden="true")
           td ng-if="!innerForm.innerEmail.$valid"
           td ng-if="user.email.length === 0"
           td ng-if="user.type !== 'BaseAuth::User::AdminUser'"
-            a(href="#" ng-click="deleteUser(user.id)")
+            a(href="#" ng-click="deleteUser(user.id)" id="deleteUser{{user.id}}")
               span.glyphicon.glyphicon-remove(aria-hidden="true")
 
       tbody ng-if="!editMode"
@@ -60,8 +66,10 @@ javascript:
           td ng-bind="user.createdAt | date: 'dd.MM.yyyy, HH:mm'"
           td ng-bind="user.updatedAt | date: 'dd.MM.yyyy, HH:mm'"
           td
-            span.glyphicon.glyphicon-check(ng-if="user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
-            span.glyphicon.glyphicon-unchecked(ng-if="!user.type === 'BaseAuth::User::AdminUser'" aria-hidden="true")
+            span.glyphicon.glyphicon-check(ng-if="user.type === \
+            'BaseAuth::User::AdminUser'" aria-hidden="true")
+            span.glyphicon.glyphicon-unchecked(ng-if="!user.type === \
+            'BaseAuth::User::AdminUser'" aria-hidden="true")
           td ng-if="'{{formName}}.{{emailName}}'.$valid && editMode"
             a(href="#" ng-click="saveUser(user)")
               span.glyphicon.glyphicon-ok(aria-hidden="true")
@@ -78,8 +86,11 @@ javascript:
         .modal-body
           form name="userForm"
             .form-group
-              input.form-control placeholder="E-Mail" type="email" ng-model="newUser.email" ng-required="true" name="newUserEmail"
-              input.form-control placeholder="Password" type="password" ng-model="newUser.password" ng-required="true" ng-minlength=6 name="newUserPassword"
+              input.form-control placeholder="E-Mail" type="email" ng-model="\
+              newUser.email" ng-required="true" name="newUserEmail"
+              input.form-control placeholder="Password" type="password" ng-model="\
+              newUser.password" ng-required="true" ng-minlength=6 name="newUserPassword"
         .modal-footer
           button.btn.btn-default data-dismiss="modal" type="button" ng-click="dismiss()" Close
-          button.btn.btn-primary data-dismiss="modal" type="button" ng-click="createUser()" ng-disabled="userForm.$invalid" Save
+          button.btn.btn-primary#createUserButton data-dismiss="modal" type="\
+          button" ng-click="createUser()" ng-disabled="userForm.$invalid" Save
