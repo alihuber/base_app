@@ -1,0 +1,4 @@
+= form_tag "/publish_message", remote: true, authenticity_token: true do
+  = text_area_tag "content", "message"
+  br
+  = submit_tag "Send", class: "btn btn-primary", data: { send: "message" }

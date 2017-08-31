@@ -14,7 +14,7 @@ gem "puma",  "~> 3.7"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.5"
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 3.0"
+gem "redis", "~> 3.0"
 gem "http_accept_language"
 
 
@@ -40,11 +40,12 @@ gem "jwt"
 ####
 # engines
 ####
-gem "base_admin",   path: "engines/base_admin"
-gem "base_auth",    path: "engines/base_auth"
-gem "base_account", path: "engines/base_account"
-gem "base_api",     path: "engines/base_api"
-gem "base_mailer",  path: "engines/base_mailer"
+gem "base_admin",    path: "engines/base_admin"
+gem "base_auth",     path: "engines/base_auth"
+gem "base_account",  path: "engines/base_account"
+gem "base_api",      path: "engines/base_api"
+gem "base_mailer",   path: "engines/base_mailer"
+gem "base_messages", path: "engines/base_messages"
 
 
 # Use Capistrano for deployment
