@@ -22,4 +22,4 @@ de:
     profile:
       update:
         success: "Profil wurde erfolgreich aktualisiert"
-        faile: "Profil speichern nicht erfolgreich"
+        failure: "Profil speichern nicht erfolgreich"

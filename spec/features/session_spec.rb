@@ -13,7 +13,7 @@ feature "session handling" do
 
     expect(page).to have_css ".alert-success"
     expect(get_me_the_cookie("auth_token")[:expires]).to be_nil
-    expect(current_path).to eq main_app.root_path
+    expect(current_path).to eq base_messages.user_dashboard_path
   end
 
   scenario "login with 'remember_me'" do
@@ -28,7 +28,7 @@ feature "session handling" do
     expect(get_me_the_cookie("auth_token")[:value]).to eq user.auth_token
     expect(get_me_the_cookie("auth_token")[:expires].year).to(
       eq Time.zone.today.year + 20)
-    expect(current_path).to eq main_app.root_path
+    expect(current_path).to eq base_messages.user_dashboard_path
   end
 
   scenario "login fails" do
@@ -45,7 +45,7 @@ feature "session handling" do
     login(user)
     expect(get_me_the_cookie("auth_token")[:value]).to eq user.auth_token
     expect(page).to have_css ".alert-success"
-    expect(current_path).to eq main_app.root_path
+    expect(current_path).to eq base_messages.user_dashboard_path
 
     click_link "logout_link"
 
