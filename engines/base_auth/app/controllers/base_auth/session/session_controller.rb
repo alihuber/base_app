@@ -2,6 +2,9 @@ module BaseAuth
   module Session
     class SessionController < BaseAuth::ApplicationController
       skip_before_action :verify_authenticity_token, only: :destroy
+      # fix for mobile safari to request the page before submitting it to
+      # prevent ActionController::InvalidAuthenticityToken exceptions
+      rescue_from ActionController::InvalidAuthenticityToken, with: :warn_session_reset
 
       def new
         @form = BaseAuth::Session::CreateSession.new
@@ -37,6 +40,13 @@ module BaseAuth
 
       def redirect_url
         main_app.root_path
+      end
+
+      def warn_session_reset
+        redirect_back(
+          fallback_location: main_app.root_path,
+          alert: 'We had to block your login attempt because your session has expired. Please try again.'
+        )
       end
     end
   end
